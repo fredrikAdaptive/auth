@@ -11,7 +11,7 @@
         <div class="container">
             <!-- Header -->
             <div class="row mt-2 mb-0">
-                <div class="col-3">
+                <div class="col-6">
                     <img
                         src="/images/onVisitLogo.png"
                         alt="onVisit by Adaptive logo"
@@ -20,8 +20,8 @@
                         width="100"
                     >
                 </div>
-                <h1 class="col-6 text-center">Autorisering</h1>
-                <div class="col-3 text-end">
+                
+                <div class="col-6 text-end">
                     <img
                     src="/images/nb-NO.png"
                     alt="Norwegian flag"
@@ -38,85 +38,115 @@
                     >
                 </div>
             </div>
-            <!-- 
-                Background green opacity:
-                bg-success bg-opacity-50
-                vs:
-                #2AB51475
+            <div class="row">
+                <h1 class="col-12 text-center">Autorisasjon</h1>
+            </div>
 
-                Background danger opacity:
-                bg-danger bg-opacity-50
-                vs:
-                #DA424250
-            -->
-
-            <!-- Button Header -->
-            <div class="row d-flex justify-content-between bg-light shadow rounded p-1 mb-2">
-                <div class="col-1 my-auto">
-                    <input style="transform:scale(1.5)" class="form-check-input shadow" type="checkbox" aria-label="Checkbox for selecting everyone in the list below">
+            <!-- Button Header -->        
+            <div class="row d-flex justify-content-between bg-light shadow rounded p-1 mb-3">
+                    <div class="col-12 my-auto mb-2 text-center">
+                        <button class="btn btn-info shadow" id="btn-refresh-page" data-bind="click: loadVisitors">
+                            <span data-bind="text: selectedLanguage().refresh">Sjekk om gjester venter på godkjenning <b>⟳</b></span>
+                        </button>
+                    </div>
+                <div class="col-1 d-flex justify-content-center mb-2">
+                    <div class="my-auto">
+                        <input style="transform:scale(1.5)" class="form-check-input shadow" type="checkbox" aria-label="Checkbox for selecting everyone in the list below">
+                    </div>
                 </div>
-                <div class="col-3">
-                    <button class="btn btn-success shadow" id="btn-approve-selected-guests">Godkjenn valgte</button>
+                <div class="col-10 d-flex justify-content-between mb-2">
+                    <div class="mt-2 mb-2">
+                        <button class="btn btn-success shadow" id="btn-approve-selected-guests">Godkjenn valgte</button>
+                    </div>
+                    <div class="m-2">
+                        <button class="btn btn-success shadow" id="btn-approve-all-guests">Godkjenn alle</button>
+                    </div>
+                    <div class="mt-2 mb-2">
+                        <button class="btn btn-danger shadow" id="btn-deny-selected-guests">Avvis valgte</button>  
+                    </div>
                 </div>
-                <div class="col-3">
-                    <button class="btn btn-success shadow" id="btn-approve-all-guests">Godkjenn alle</button>
-                </div>
-                <div class="col-3">
-                    <button class="btn btn-danger shadow" id="btn-deny-selected-guests">Avvis valgte</button>
-                </div>
+                <div class="col-1"></div>
             </div>
             
-            <!-- Visitors -->
-            <div class="row d-flex justify-content-between shadow rounded p-1 mb-2" style="background: #2AB51475;">
+            <!-- Visitors -->          
+            <div class="row d-flex justify-content-between bg-light shadow rounded p-1 mb-2">
                 <div class="col-1 d-flex justify-content-center mb-1">
                     <div class="my-auto">
                         <input style="transform:scale(1.5)" class="form-check-input shadow" type="checkbox" aria-label="Checkbox for selecting everyone in the list below">
                     </div>
                 </div>
-                <div class="col-11">
-                    <div class="row ms-1">
+                <div class="col-10">
+                    <div class="row mb-2">
+                        <div class="row">Ole Brumm Inngjerdingen Forså Forså</div>
+                        <div class="row"><a href="tel:+4792083255" style="padding: 0;">+47 920 83 255</a></div>
+                        <div class="row mb-1">Hundremeterskogen AS m/ venner</div>
+                    </div>
+                    <div class="my-auto col-10 mb-1 text-center">
+                        <button class="btn btn-danger col-5 shadow mb-1">Avvis</button>
+                        <button class="btn btn-info col-5 shadow mb-1">Godkjenn</button>
+                    </div>
+                </div>
+            </div> 
+
+            <div class="row d-flex justify-content-between shadow rounded p-1 mb-2" style="">
+                <div class="col-1 d-flex justify-content-center mb-1">
+                    <div class="my-auto">
+                        <input style="transform:scale(1.5)" class="form-check-input shadow" type="checkbox" aria-label="Checkbox for selecting everyone in the list below">
+                    </div>
+                </div>
+                <div class="col-10">
+                    <div class="row mb-2">
                         <div class="row">Fredrik Inngjerdingen Forså Forså Forså</div>
                         <div class="row"><a href="tel:+4792083255" style="padding: 0;">+47 920 83 255</a></div>
                         <div class="row mb-1">Kongsberggruppen AS m/ venner</div>
                     </div>
                     <div class="my-auto col-10 mb-1 text-center">
-                        <button class="btn btn-danger shadow mb-1">Avvis</button>
+                        <button class="btn btn-danger col-5 shadow mb-1">Avvis</button>
                     </div>
-                </div>
+                    <div class="my-auto col-10 mb-2 text-center">
+                        <div class="alert alert-danger mt-2" data-bind="visible: Authorizer()" style="display: none;">
+                        <span data-bind="text: Approved() ? $root.selectedLanguage().approvedBy : $root.selectedLanguage().deniedBy">Godkjent av</span>
+                        <span data-bind="text: Authorizer()"></span>
+                        </div>
+                        <div class="shadow alert alert-danger mt-2" data-bind="visible: !Processing() &amp;&amp; Denied()" style="display: none;">
+                        <span data-bind="text: $root.selectedLanguage().denied">Avvist 𐄂</span>
+                        </div>
+                        <div class="shadow alert alert-success mt-2" data-bind="visible: !Processing() &amp;&amp; Approved()" style="">
+                        <span data-bind="text: $root.selectedLanguage().approved">Gjesten er godkjent <b>✓</b></span>
+                        </div>
+                        <span class="progressIndicator" data-bind="visible: Processing()" style="display: none;"></span>
+                        </div>
+                    </div>
             </div>
 
-            <div class="row d-flex justify-content-between bg-light shadow rounded p-1 mb-2">
+            <div class="row d-flex justify-content-between shadow rounded p-1 mb-2" style="">
                 <div class="col-1 d-flex justify-content-center mb-1">
                     <div class="my-auto">
                         <input style="transform:scale(1.5)" class="form-check-input shadow" type="checkbox" aria-label="Checkbox for selecting everyone in the list below">
                     </div>
                 </div>
-                <div class="col-11">
-                    <div class="row ms-1">
+                <div class="col-10">
+                    <div class="row mb-2">
                         <div class="row">Ole Brumm Inngjerdingen Forså Forså</div>
                         <div class="row"><a href="tel:+4792083255" style="padding: 0;">+47 920 83 255</a></div>
                         <div class="row mb-1">Hundremeterskogen AS m/ venner</div>
                     </div>
-                    <div class="my-auto col-10 mb-1 text-center">
-                        <button class="btn btn-info shadow mb-1">Godkjenn</button>
+                    <div class="my-auto col-10 mb-2 text-center">
+                        <button class="btn btn-info col-5 shadow mb-1">Godkjenn</button>
                     </div>
-                </div>
-            </div> 
-
-            <div class="row d-flex justify-content-between shadow rounded p-1 mb-2" style="background: #DA424250;">
-                <div class="col-1 d-flex justify-content-center mb-1">
-                    <div class="my-auto">
-                        <input style="transform:scale(1.5)" class="form-check-input shadow" type="checkbox" aria-label="Checkbox for selecting everyone in the list below">
-                    </div>
-                </div>
-                <div class="col-11">
-                    <div class="row ms-1">
-                        <div class="row">Ole Brumm Inngjerdingen Forså Forså</div>
-                        <div class="row"><a href="tel:+4792083255" style="padding: 0;">+47 920 83 255</a></div>
-                        <div class="row mb-1">Hundremeterskogen AS m/ venner</div>
-                    </div>
-                    <div class="my-auto col-10 mb-1 text-center">
-                        <button class="btn btn-info shadow mb-1">Godkjenn</button>
+                    <div class="my-auto col-10 mb-2 text-center">
+                        <div class="alert alert-danger mt-2" data-bind="visible: Authorizer()" style="display: none;">
+                        <span data-bind="text: Approved() ? $root.selectedLanguage().approvedBy : $root.selectedLanguage().deniedBy">Godkjent av</span>
+                        <span data-bind="text: Authorizer()"></span>
+                        </div>
+                        <div class="shadow alert mx-auto alert-danger mt-2" data-bind="visible: !Processing() &amp;&amp; Denied()" style="">
+                        <span data-bind="text: $root.selectedLanguage().denied">Gjesten er avvist <b>𐄂</b></span>
+                        </div>
+                        <div class="shadow alert mx-auto alert-success mt-2" data-bind="visible: !Processing() &amp;&amp; Approved()" style="display: none;">
+                        <span data-bind="text: $root.selectedLanguage().approved">Godkjent <b>✓</b></span>
+                        </div>
+                        <span class="progressIndicator" data-bind="visible: Processing()" style="display: none;"></span>
+                        </div>
                     </div>
                 </div>
             </div>        
