@@ -1,0 +1,13 @@
+.container {
+    max-width: 800px;
+}
+
+@media screen and (min-width: 600px) {
+    .mq-600-mw-150 {
+        max-width: 150px;
+    }
+
+    .mq-600-mw-350 {
+        max-width: 350px;
+    }
+}
